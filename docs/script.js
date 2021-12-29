@@ -20,6 +20,16 @@ class Block {
 
   init() {
     $("#board").append(this.element);
+    Myo.connect('');
+
+    Myo.on('connected', function(){
+      console.log('connected!', this.id)
+      Myo.setLockingPolicy('none');
+    });
+
+    Myo.onError = function () {  
+      console.log("Woah, couldn't connect to Myo Connect");
+    }
   }
 
   render() {
@@ -720,6 +730,30 @@ $(document).keydown(function(e) {
       break; // exit this handler for other keys
   }
   e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+
+Myo.on('fist', function(){  
+  console.log('Rotate!');
+  this.vibrate();
+  board.upKeyPress();
+});
+
+Myo.on('wave_in', function(){  
+  console.log('Move left!');
+  this.vibrate();
+  board.leftKeyPress();
+});
+
+Myo.on('wave_out', function(){  
+  console.log('Move right!');
+  this.vibrate();
+  board.rightKeyPress();
+});
+
+Myo.on('fingers_spread', function(){  
+  console.log('Speed up!');
+  this.vibrate();
+  board.downKeyPress();
 });
 
 $("#new-game").click(function() {
