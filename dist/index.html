@@ -10,6 +10,13 @@
 <body>
 <!-- partial:index.partial.html -->
 <div id="outer-board">
+  <div id="choose-control-method">
+    Please select the control method:
+    <form>
+      <input type="radio" name="method" value="gesture">Gesture
+      <input type="radio" name="method" value="arm">Arm
+    </form>
+  </div>
   <div id="board"> 
     <div id="banner">
       <div> 
@@ -826,6 +833,18 @@
     <button class="btn btn-rounded" id="right"><i class="fa fas fa-arrow-right"></i></button>
     <button class="btn btn-rounded" id="rotate"> <i class="fa fas fa-undo flipx"></i></button>
     <button class="btn btn-rounded" id="down"> <i class="fa fas fa-arrow-down"></i></button>
+  </div>
+  <div id="armband-status">Myo-Armband: 
+    <pre id="connect-status">disconnected</pre>
+  </div>
+  <div id="orientation">Orientation:
+    <pre id="ori">ori</pre>
+  </div>
+  <div id="gyroscope">Gyroscope:
+    <pre id="gyr">gyr</pre>
+  </div>
+  <div id="accelerometer">Accelerometer:
+    <pre id="acc">acc</pre>
   </div>
 </div>
 <!-- partial -->
