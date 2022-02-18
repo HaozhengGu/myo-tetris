@@ -474,8 +474,8 @@ class Board {
     this.renderBlocks();
     this.spawnShapes();
     this.gameUpdate();
-    console.log("Shapes Length:" + this.shapes.length);
-    console.log("Blocks Length:" + this.blocks.length);
+    // console.log("Shapes Length:" + this.shapes.length);
+    // console.log("Blocks Length:" + this.blocks.length);
   }
 
   gameUpdate() {
@@ -743,206 +743,273 @@ $(document).keydown(function(e) {
   e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 
-Myo.on('fist', function(){  
-  console.log('Rotate!');
-  // this.vibrate();
-  board.upKeyPress();
-});
-
-// Myo.on('double_tap', function(){  
+// Myo.on('fist', function(){  
 //   console.log('Rotate!');
 //   // this.vibrate();
 //   board.upKeyPress();
 // });
 
-Myo.on('wave_in', function(){  
-  console.log('Move left!');
-  // this.vibrate();
-  board.leftKeyPress();
-});
+// // Myo.on('double_tap', function(){  
+// //   console.log('Rotate!');
+// //   // this.vibrate();
+// //   board.upKeyPress();
+// // });
 
-Myo.on('wave_out', function(){  
-  console.log('Move right!');
-  // this.vibrate();
-  board.rightKeyPress();
-});
+// Myo.on('wave_in', function(){  
+//   console.log('Move left!');
+//   // this.vibrate();
+//   board.leftKeyPress();
+// });
 
-Myo.on('fingers_spread', function(){  
-  console.log('Speed up!');
-  // this.vibrate();
-  board.downKeyPress();
-});
+// Myo.on('wave_out', function(){  
+//   console.log('Move right!');
+//   // this.vibrate();
+//   board.rightKeyPress();
+// });
+
+// Myo.on('fingers_spread', function(){  
+//   console.log('Speed up!');
+//   // this.vibrate();
+//   board.downKeyPress();
+// });
 
 
 
-// let arrayOriX = [];
-// let arrayOriY = [];
-// let arrayOriZ = [];
-// let arrayOriW = [];
+let arrayOriX = [];
+let arrayOriY = [];
 
-// let arrayGyrX = [];
-// let arrayGyrY = [];
-// let arrayGyrZ = [];
+let arrayAccX = [];
+let arrayAccY = [];
 
-// let arrayAccX = [];
-// let arrayAccY = [];
-// let arrayAccZ = [];
+const buttonToggle = document.getElementById("toggle");
+const buttonSettings = document.getElementById("settings");
+buttonToggle.addEventListener("click", onClickToggle);
+buttonSettings.addEventListener("click", onClickSettings);
+
+function onClickToggle() {
+  const table = document.getElementById("sensors");
+  if (table.style.display === "none") {
+    table.style.display = "block";
+  } else {
+    table.style.display = 'none';
+  }
+}
+
+function onClickSettings() {
+  const settings = document.getElementById("choose-control-method");
+  if (settings.style.display === "none") {
+    settings.style.display = "block";
+  } else {
+    settings.style.display = 'none';
+  }
+}
 
 Myo.on('imu', function(data){
 
   // console.log("imu",data.accelerometer);
 
-  // let oriX = data.orientation['x'];
-  // let oriY = data.orientation['y'];
-  // let oriZ = data.orientation['z'];
-  // let oriW = data.orientation['W'];
+  let oriX = data.orientation['x'];
+  let oriY = data.orientation['y'];
 
-  // let gyrX = data.gyroscope['x'];
-  // let gyrY = data.gyroscope['y'];
-  // let gyrZ = data.gyroscope['z'];
-
-  // let accX = data.accelerometer['x'];
-  // let accY = data.accelerometer['y'];
-  // let accZ = data.accelerometer['z'];
+  let accX = data.accelerometer['x'];
+  let accY = data.accelerometer['y'];
 
 
-  let ori = document.getElementById('ori');
-  ori.innerText = JSON.stringify(data.orientation, null, 4);
-  let quat = [data.orientation.x, data.orientation.y, data.orientation.z, data.orientation.w];
-  let euler = qte(quat);
-  ori.innerText += "\nEuler (rad): \n" + JSON.stringify(euler, null, 4);
-  ori.innerText += "\nEuler (°): \n" + JSON.stringify(euler.map(n => n * 180/Math.PI), null, 4);
-  let gyr = document.getElementById('gyr');
-  gyr.innerText = JSON.stringify(data.gyroscope, null, 4);
-  let acc = document.getElementById('acc');
-  acc.innerText = JSON.stringify(data.accelerometer, null, 4);
+  // let ori = document.getElementById('ori');
+  // ori.innerText = JSON.stringify(data.orientation, null, 4);
+  // let quat = [data.orientation.x, data.orientation.y, data.orientation.z, data.orientation.w];
+  // let euler = qte(quat);
+  // ori.innerText += "\nEuler (rad): \n" + JSON.stringify(euler, null, 4);
+  // ori.innerText += "\nEuler (°): \n" + JSON.stringify(euler.map(n => n * 180/Math.PI), null, 4);
+  // let gyr = document.getElementById('gyr');
+  // gyr.innerText = JSON.stringify(data.gyroscope, null, 4);
+  // let acc = document.getElementById('acc');
+  // acc.innerText = JSON.stringify(data.accelerometer, null, 4);
 
 
-  // arrayOriX.push(oriX);
-  // arrayOriY.push(oriY);
-  // arrayOriZ.push(oriZ);
-  // arrayOriW.push(oriW);
+  let oriXValue = document.getElementById('ori-x-value');
+  oriXValue.innerText = JSON.stringify(data.orientation.x.toFixed(2), null, 4);
+  let oriYValue = document.getElementById('ori-y-value');
+  oriYValue.innerText = JSON.stringify(data.orientation.y.toFixed(2), null, 4);
+  let oriZValue = document.getElementById('ori-z-value');
+  oriZValue.innerText = JSON.stringify(data.orientation.z.toFixed(2), null, 4);
+  let oriWValue = document.getElementById('ori-w-value');
+  oriWValue.innerText = JSON.stringify(data.orientation.w.toFixed(2), null, 4);
+
+  let gyrXValue = document.getElementById('gyr-x-value');
+  gyrXValue.innerText = JSON.stringify(data.gyroscope.x.toFixed(2), null, 4);
+  let gyrYValue = document.getElementById('gyr-y-value');
+  gyrYValue.innerText = JSON.stringify(data.gyroscope.y.toFixed(2), null, 4);
+  let gyrZValue = document.getElementById('gyr-z-value');
+  gyrZValue.innerText = JSON.stringify(data.gyroscope.z.toFixed(2), null, 4);
+
   
-  // arrayGyrX.push(gyrX);
-  // arrayGyrY.push(gyrY);
-  // arrayGyrZ.push(gyrZ);
+  let accXValue = document.getElementById('acc-x-value');
+  accXValue.innerText = JSON.stringify(data.accelerometer.x.toFixed(2), null, 4);
+  let accYValue = document.getElementById('acc-y-value');
+  accYValue.innerText = JSON.stringify(data.accelerometer.y.toFixed(2), null, 4);
+  let accZValue = document.getElementById('acc-z-value');
+  accZValue.innerText = JSON.stringify(data.accelerometer.z.toFixed(2), null, 4);
 
-  // arrayAccX.push(accX);
-  // arrayAccY.push(accY);
-  // arrayAccZ.push(accZ);
+  let l = Math.pow(data.accelerometer.x) + Math.pow(data.accelerometer.y) + Math.pow(data.accelerometer.z);
+  let accLValue = document.getElementById('acc-l-value');
+  accLValue.innerText = JSON.stringify(Math.sqrt(l).toFixed(2), null, 4);
 
-  // if(arrayOriX.length > 100) {
-  //   arrayOriX.shift();
-  // }
-  // if(arrayOriY.length > 100) {
-  //   arrayOriY.shift();
-  // }
-  // if(arrayOriZ.length > 100) {
-  //   arrayOriZ.shift();
-  // }
-  // if(arrayOriW.length > 100) {
-  //   arrayOriW.shift();
-  // }
+  d3.csv(function(err, rows) {
+    function unpack(rows, key) {
+      return rows.map(function(row) {
+        return row[key];
+      });
+    }
+    var x = unpack(rows , data.accelerometer.x);
+    var y = unpack(rows , data.accelerometer.y);
+    var z = unpack(rows , data.accelerometer.z);
+    Plotly.newPlot('myDiv', [{
+    type: 'scatter3d',
+    mode: 'lines',
+    x: x,
+    y: y,
+    z: z,
+    }]);
+  });
 
-  // if(arrayGyrX.length > 100) {
-  //   arrayGyrX.shift();
-  // }
-  // if(arrayGyrY.length > 100) {
-  //   arrayGyrY.shift();
-  // }
-  // if(arrayGyrZ.length > 100) {
-  //   arrayGyrZ.shift();
-  // }
+  arrayOriX.push(oriX);
+  arrayOriY.push(oriY);
 
-  // if(arrayAccX.length > 100) {
-  //   arrayAccX.shift();
-  // }
-  // if(arrayAccY.length > 100) {
-  //   arrayAccY.shift();
-  // }
-  // if(arrayAccZ.length > 100) {
-  //   arrayAccZ.shift();
-  // }
+  arrayAccX.push(accX);
+  arrayAccY.push(accY);
 
+  if(arrayOriX.length > 50) {
+    arrayOriX.shift();
+  }
+  if(arrayOriY.length > 50) {
+    arrayOriY.shift();
+  }
 
+  if(arrayAccX.length > 50) {
+    arrayAccX.shift();
+  }
+  if(arrayAccY.length > 50) {
+    arrayAccY.shift();
+  }
+  
   // if(accX > 0.9) {
   //   console.log('Rotate!');
-  //   this.vibrate();
+  //   // this.vibrate();
   //   board.upKeyPress();
   // }
 
   // if(accX < -0.9) {
   //   console.log('Speed up!');
-  //   this.vibrate();
+  //   // this.vibrate();
   //   board.downKeyPress();
   // }
 
-  // if(accY < -0.2) {
+  // if(oriY > 0.2) {
   //   console.log('Move left!');
-  //   this.vibrate();
+  //   // this.vibrate();
   //   board.leftKeyPress();
   // }
 
-  // if(accY > 0.2) {
+  // if(oriY< -0.5) {
   //   console.log('Move right!');
-  //   this.vibrate();
+  //   // this.vibrate();
   //   board.rightKeyPress();
   // }
 
 });
 
-// setInterval(function() {
+setInterval(function() {
 
-//   let counterRotate = 0;
-//   let counterSpeedUp = 0;
-//   let counterLeft = 0;
-//   let counterRight = 0;
+  // let counterAccUp = 0;
+  // let counterAccDown = 0;
+  // let counterAccLeft = 0;
+  // let counterAccRight = 0;
 
-//   console.log('bewergen test');
+  // let counterOriUp = 0;
+  // let counterOriDown = 0;
+  // let counterOriLeft = 0;
+  // let counterOriRight = 0;
 
-//   arrayOriY.forEach(function(item) {
-//     if(item < -0.5) {
-//       counterRotate += 1;
-//     }
-//     if(item > 0.5) {
-//       counterSpeedUp += 1;
-//     }
-//   });
-//   if(counterRotate > 50) {
-//     console.log('Rotate!');
-//     // this.vibrate();
-//     board.upKeyPress();
-//     counterRotate = 0;
-//   }
-//   if(counterSpeedUp > 50) {
-//     console.log('Speed up!');
-//     // this.vibrate();
-//     board.downKeyPress();
-//     counterSpeedUp = 0;
-//   }
+  // // console.log('bewergen test');
 
-//   // arrayAccY.forEach(function(item) {
-//   //   if(item < -0.2) {
-//   //     counterLeft += 1;
-//   //   }
-//   //   if(item > 0.2) {
-//   //     counterRight += 1;
-//   //   }
-//   // });
-//   // if(counterLeft > 50) {
-//   //   console.log('Move left!');
-//   //   // this.vibrate();
-//   //   board.leftKeyPress();
-//   //   counterLeft = 0;
-//   // }
-//   // if(counterRight > 50) {
-//   //   console.log('Move right!');
-//   //   // this.vibrate();
-//   //   board.rightKeyPress();
-//   //   counterRight = 0;
-//   // }
+  // arrayAccX.forEach(function(item) {
+  //   // Acc x > 0.9: up
+  //   if(item > 0.5) {
+  //     counterAccUp += 1;
+  //   }
+  //   // Acc x < -0.9: down
+  //   if(item < -0.4) {
+  //     counterAccDown += 1;
+  //   }
+  // });
 
-// }, 500);
+  // arrayAccY.forEach(function(item) {
+  //   // Acc y < 0: left
+  //   if(item < 0.6) {
+  //     counterAccLeft += 1;
+  //   }
+  //   // Acc y > 0.9: right
+  //   if(item > 0.8) {
+  //     counterAccRight += 1;
+  //   }
+  // });
+
+  // arrayOriX.forEach(function(item) {
+  //   // Ori x < 0: left
+  //   if(item < 0.3) {
+  //     counterOriLeft += 1;
+  //   }
+  //   // Ori x > 0.6: right
+  //   if(item > 0.4) {
+  //     counterOriRight += 1;
+  //   }
+  // });
+
+  // arrayOriY.forEach(function(item) {
+  //   // Ori y < -0.5: up
+  //   if(item < -0.4) {
+  //     counterOriUp += 1;
+  //   }
+  //   // Ori y > 0.5: down
+  //   if(item > -0.1) {
+  //     counterOriDown += 1;
+  //   }
+  // });
+
+  // if(counterAccUp > 45 && counterOriUp > 45) {
+  //   console.log('Rotate!');
+  //   // this.vibrate();
+  //   board.upKeyPress();
+  //   counterAccUp = 0;
+  //   counterOriUp = 0;
+  // }
+
+  // if(counterAccDown > 30 && counterOriDown > 30) {
+  //   console.log('Speed up!');
+  //   // this.vibrate();
+  //   board.downKeyPress();
+  //   counterAccDown = 0;
+  //   counterOriDown = 0;
+  // }
+
+  // if(counterAccLeft > 30 && counterOriLeft > 30) {
+  //   console.log('Move left!');
+  //   // this.vibrate();
+  //   board.leftKeyPress();
+  //   counterAccLeft = 0;
+  //   counterOriLeft = 0;
+  // }
+
+  // if(counterAccRight > 30 && counterOriRight > 30) {
+  //   console.log('Move right!');
+  //   // this.vibrate();
+  //   board.rightKeyPress();
+  //   counterAccRight = 0;
+  //   counterOriRight = 0;
+  // }
+
+}, 500);
 
 
 
