@@ -692,6 +692,9 @@ class Board {
 let board = new Board();
 window.requestAnimationFrame(updateTableData);
 
+const accelerometerCalibratedButton = document.getElementById("accelerometer-calibrate");
+accelerometerCalibratedButton.addEventListener("click", calibrateAccelerometer);
+
 $(document).keydown(function (e) {
   switch (e.which) {
     case 37: // left
@@ -748,8 +751,19 @@ const sensorData = {
   accelerometer: {
     x: 0,
     y: 0,
-    z: 0
+    z: 0,
+    calib: {
+      x: 0,
+      y: 0,
+      z: 0
+    }
   }
+}
+
+function calibrateAccelerometer() {
+  sensorData.accelerometer.calib.x = sensorData.accelerometer.x;
+  sensorData.accelerometer.calib.y = sensorData.accelerometer.y;
+  sensorData.accelerometer.calib.z = sensorData.accelerometer.z;
 }
 
 Myo.on("imu", function (data) {
@@ -766,6 +780,25 @@ function updateTableData() {
   tableAccY.innerText = Number(sensorData.accelerometer.y).toFixed(decimalPlaces);
   const tableAccZ = document.getElementById("accelerometer-z");
   tableAccZ.innerText = Number(sensorData.accelerometer.z).toFixed(decimalPlaces);
+
+  const accelerometerLength = Math.sqrt(Math.pow(sensorData.accelerometer.x, 2) + Math.pow(sensorData.accelerometer.y, 2) + Math.pow(sensorData.accelerometer.z, 2));
+  const tableAccLength = document.getElementById("accelerometer-length");
+  tableAccLength.innerText = Number(accelerometerLength).toFixed(decimalPlaces);
+
+  const calibAccX = sensorData.accelerometer.x - sensorData.accelerometer.calib.x;
+  const calibAccY = sensorData.accelerometer.y - sensorData.accelerometer.calib.y;
+  const calibAccZ = sensorData.accelerometer.z - sensorData.accelerometer.calib.z;
+
+  const tableAccXCalib = document.getElementById("accelerometer-x-calib");
+  tableAccXCalib.innerText = Number(calibAccX).toFixed(decimalPlaces);
+  const tableAccYCalib = document.getElementById("accelerometer-y-calib");
+  tableAccYCalib.innerText = Number(calibAccY).toFixed(decimalPlaces);
+  const tableAccZCalib = document.getElementById("accelerometer-z-calib");
+  tableAccZCalib.innerText = Number(calibAccZ).toFixed(decimalPlaces);
+
+  const accelerometerLengthCalib = Math.sqrt(Math.pow(calibAccX, 2) + Math.pow(calibAccY, 2) + Math.pow(calibAccZ, 2));
+  const tableAccLengthCalib = document.getElementById("accelerometer-length-calib");
+  tableAccLengthCalib.innerText = Number(accelerometerLengthCalib).toFixed(decimalPlaces);
 
 
   window.requestAnimationFrame(updateTableData);
