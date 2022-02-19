@@ -724,6 +724,32 @@ $(document).keydown(function (e) {
   e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 
+
+Myo.on('fist', function(){  
+  console.log('Rotate!');
+  // this.vibrate();
+  board.upKeyPress();
+});
+
+Myo.on('wave_in', function(){  
+  console.log('Move left!');
+  // this.vibrate();
+  board.leftKeyPress();
+});
+
+Myo.on('wave_out', function(){  
+  console.log('Move right!');
+  // this.vibrate();
+  board.rightKeyPress();
+});
+
+Myo.on('fingers_spread', function(){  
+  console.log('Speed up!');
+  // this.vibrate();
+  board.downKeyPress();
+});
+
+
 const buttonControl = document.getElementById("control");
 const buttonSettings = document.getElementById("settings");
 buttonControl.addEventListener("click", onClickControl);
