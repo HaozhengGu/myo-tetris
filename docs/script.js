@@ -724,22 +724,22 @@ $(document).keydown(function (e) {
   e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 
-// const buttonToggle = document.getElementById("toggle");
-// const buttonSettings = document.getElementById("settings");
-// buttonToggle.addEventListener("click", onClickToggle);
-// buttonSettings.addEventListener("click", onClickSettings);
+const buttonControl = document.getElementById("control");
+const buttonSettings = document.getElementById("settings");
+buttonControl.addEventListener("click", onClickControl);
+buttonSettings.addEventListener("click", onClickSettings);
 
-function onClickToggle() {
-  const table = document.getElementById("sensors");
-  if (table.style.display === "none") {
-    table.style.display = "block";
+function onClickControl() {
+  const control = document.getElementById("controls");
+  if (control.style.display === "none") {
+    control.style.display = "block";
   } else {
-    table.style.display = "none";
+    control.style.display = "none";
   }
 }
 
 function onClickSettings() {
-  const settings = document.getElementById("choose-control-method");
+  const settings = document.getElementById("sensor-data");
   if (settings.style.display === "none") {
     settings.style.display = "block";
   } else {
