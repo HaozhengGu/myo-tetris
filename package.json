@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pug -P ./src/index.pug -o ./docs",
-    "start": "parcel ./docs/index.html"
+    "start": "parcel ./docs/index.html",
+    "watch": "nodemon --watch ./src/index.pug --exec \"npm run build\""
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "quaternion-to-euler": "^0.5.0"
   },
   "devDependencies": {
+    "nodemon": "^2.0.15",
     "parcel-bundler": "^1.12.5",
     "pug-cli": "^1.0.0-alpha6"
   }
