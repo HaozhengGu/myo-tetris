@@ -757,6 +757,17 @@ const sensorData = {
       y: 0,
       z: 0
     }
+  },
+  gyroscope: {
+    x: 0,
+    y: 0,
+    z: 0
+  },
+  orientation: {
+    x: 0,
+    y: 0,
+    z: 0,
+    w: 0
   }
 }
 
@@ -770,6 +781,13 @@ Myo.on("imu", function (data) {
   sensorData.accelerometer.x = data.accelerometer.x;
   sensorData.accelerometer.y = data.accelerometer.y;
   sensorData.accelerometer.z = data.accelerometer.z;
+  sensorData.gyroscope.x = data.gyroscope.x;
+  sensorData.gyroscope.y = data.gyroscope.y;
+  sensorData.gyroscope.z = data.gyroscope.z;
+  sensorData.orientation.x = data.orientation.x;
+  sensorData.orientation.y = data.orientation.y;
+  sensorData.orientation.z = data.orientation.z;
+  sensorData.orientation.w = data.orientation.w;
 });
 
 function updateTableData() {
@@ -799,6 +817,24 @@ function updateTableData() {
   const accelerometerLengthCalib = Math.sqrt(Math.pow(calibAccX, 2) + Math.pow(calibAccY, 2) + Math.pow(calibAccZ, 2));
   const tableAccLengthCalib = document.getElementById("accelerometer-length-calib");
   tableAccLengthCalib.innerText = Number(accelerometerLengthCalib).toFixed(decimalPlaces);
+
+  
+  const tableGyrX = document.getElementById("gyroscope-x");
+  tableGyrX.innerText = Number(sensorData.gyroscope.x).toFixed(decimalPlaces);
+  const tableGyrY = document.getElementById("gyroscope-y");
+  tableGyrY.innerText = Number(sensorData.gyroscope.y).toFixed(decimalPlaces);
+  const tableGyrZ = document.getElementById("gyroscope-z");
+  tableGyrZ.innerText = Number(sensorData.gyroscope.z).toFixed(decimalPlaces);
+
+  
+  const tableOriX = document.getElementById("orientation-x");
+  tableOriX.innerText = Number(sensorData.orientation.x).toFixed(decimalPlaces);
+  const tableOriY = document.getElementById("orientation-y");
+  tableOriY.innerText = Number(sensorData.orientation.y).toFixed(decimalPlaces);
+  const tableOriZ = document.getElementById("orientation-z");
+  tableOriZ.innerText = Number(sensorData.orientation.z).toFixed(decimalPlaces);
+  const tableOriW = document.getElementById("orientation-w");
+  tableOriW.innerText = Number(sensorData.orientation.w).toFixed(decimalPlaces);
 
 
   window.requestAnimationFrame(updateTableData);
