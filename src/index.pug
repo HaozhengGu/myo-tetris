@@ -5,55 +5,69 @@ html(lang="en")
     meta(charset="UTF-8")
     title Myo - Tetris
     script(src="myo.js")
-    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+    //- link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css')
     link(rel="stylesheet" href="./style.css")
     script(src='https://cdn.plot.ly/plotly-2.9.0.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js')
   body
-    div(id='outer-board')
-      div(id='board') 
-        div(id='banner')
-          div 
-            div(id='message')
-            div(id='new-game') Tap here to start!
-        - var n=0;
-        while n < 160
-          div(class="empty")
-            div(class="inner-tile")
-              div(class="inner-inner-tile")
-          - n++;
-      div(id='stats')
-        div(class='labels') Scores
-          div(id='score' class='frame') 0        
-        button(class='btn btn-rounded' id="left") 
-          i(class="fa fas fa-arrow-left")
-        button(class='btn btn-rounded' id="right")
-          i(class="fa fas fa-arrow-right")
-        button(class='btn btn-rounded' id="rotate") 
-          i(class="fa fas fa-undo flipx")
-        button(class='btn btn-rounded' id="down") 
-          i(class="fa fas fa-arrow-down")
-        button(class='btn btn-rounded' id="control")
-          i(class="fa fas fa-gamepad")
-        button(class='btn btn-rounded' id="settings")
-          i(class="fa fas fa-gear")
+    div(class="container")
+      div(class="container-item")
+        div(id="controls")
+          span Please select the control method:
+          form
+            input(id="gesture-control" type="radio" name="method" value="gesture")
+            label(for="gesture-control") Gesture
+              i(class="fa-solid fa-hand-fist")
+            input(id="arm-control" type="radio" name="method" value="arm")
+            label(for="arm-control") Arm
+              i(class="fa-solid fa-hand")
+      div(class="container-item")
+        div(id='outer-board')
+          div(id='board') 
+            div(id='banner')
+              div 
+                div(id='message')
+                div(id='new-game') Tap here to start!
+            - var n=0;
+            while n < 160
+              div(class="empty")
+                div(class="inner-tile")
+                  div(class="inner-inner-tile")
+              - n++;
+          div(id='stats')
+            div(class='labels') Scores
+              div(id='score' class='frame') 0        
+            button(class='btn btn-rounded' id="left") 
+              i(class="fa-solid fa-2xl fa-arrow-left")
+            button(class='btn btn-rounded' id="right")
+              i(class="fa-solid fa-2xl fa-arrow-right")
+            button(class='btn btn-rounded' id="rotate") 
+              i(class="fa-solid fa-2xl fa-undo flipx")
+            button(class='btn btn-rounded' id="down") 
+              i(class="fa-solid fa-2xl fa-arrow-down")
+            button(class='btn btn-rounded' id="control")
+              i(class="fa-solid fa-2xl fa-gamepad")
+            button(class='btn btn-rounded' id="settings")
+              i(class="fa-solid fa-2xl fa-gear")
 
-      table(id='sensor-data')
-        thead
-          tr
-            th(colspan="2") Myo-Armband Sensordaten
-        tbody
-          tr
-            th(colspan="2") Accelerometer
-          tr
-            th x
-            td(id="accelerometer-x") 0.11
-          tr
-            th y
-            td(id="accelerometer-y") 0.12
-          tr
-            th z
-            td(id="accelerometer-z") 0.13
+      div(class="container-item")
+        table(id='sensor-data')
+          thead
+            tr
+              th(colspan="2") Myo-Armband Sensordaten
+          tbody
+            tr
+              th(colspan="2") Accelerometer
+            tr
+              th x
+              td(id="accelerometer-x") 0.11
+            tr
+              th y
+              td(id="accelerometer-y") 0.12
+            tr
+              th z
+              td(id="accelerometer-z") 0.13
             
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/animatelo/1.0.3/animatelo.min.js')
