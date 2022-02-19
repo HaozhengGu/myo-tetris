@@ -3,6 +3,20 @@ body {
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
 }
 
+.container {
+  /* display: block; // default */
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.container-item {
+  flex: 20%;
+}
+
+.container-item:nth-child(2) {
+  flex: 60%;
+}
+
 .labels {
   margin: auto;
   margin-top: 10px;
