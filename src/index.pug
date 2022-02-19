@@ -13,15 +13,16 @@ html(lang="en")
   body
     div(class="container")
       div(class="container-item")
-        div(id="controls")
+        div(id="controls" class='labels')
           span Please select the control method:
           form
             input(id="gesture-control" type="radio" name="method" value="gesture")
-            label(for="gesture-control") Gesture
-              i(class="fa-solid fa-hand-fist")
+            label(for="gesture-control") Gesture 
+              i(class="fa-solid fa-xl fa-hand-fist")
+            br
             input(id="arm-control" type="radio" name="method" value="arm")
-            label(for="arm-control") Arm
-              i(class="fa-solid fa-hand")
+            label(for="arm-control") Arm 
+              i(class="fa-solid fa-xl fa-hand")
       div(class="container-item")
         div(id='outer-board')
           div(id='board') 
