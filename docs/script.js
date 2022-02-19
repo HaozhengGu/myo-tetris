@@ -1,4 +1,4 @@
-var qte = require("quaternion-to-euler");
+// var qte = require("quaternion-to-euler");
 
 class Position {
   constructor(x, y) {
@@ -404,8 +404,8 @@ class Board {
     Myo.connect("");
 
     Myo.on("connected", function () {
-      let connectStatus = document.getElementById("connect-status");
-      connectStatus.innerText = "connected";
+      // let connectStatus = document.getElementById("connect-status");
+      // connectStatus.innerText = "connected";
       console.log("connected!", this.id);
       Myo.setLockingPolicy("none");
       // Myo.setLockingPolicy('standard');
@@ -688,7 +688,9 @@ class Board {
   }
 }
 
+// Initialisation
 let board = new Board();
+window.requestAnimationFrame(updateTableData);
 
 $(document).keydown(function (e) {
   switch (e.which) {
@@ -719,10 +721,10 @@ $(document).keydown(function (e) {
   e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 
-const buttonToggle = document.getElementById("toggle");
-const buttonSettings = document.getElementById("settings");
-buttonToggle.addEventListener("click", onClickToggle);
-buttonSettings.addEventListener("click", onClickSettings);
+// const buttonToggle = document.getElementById("toggle");
+// const buttonSettings = document.getElementById("settings");
+// buttonToggle.addEventListener("click", onClickToggle);
+// buttonSettings.addEventListener("click", onClickSettings);
 
 function onClickToggle() {
   const table = document.getElementById("sensors");
@@ -742,9 +744,34 @@ function onClickSettings() {
   }
 }
 
-Myo.on("imu", function (data) {});
+const sensorData = {
+  accelerometer: {
+    x: 0,
+    y: 0,
+    z: 0
+  }
+}
 
-setInterval(function () {}, 500);
+Myo.on("imu", function (data) {
+  sensorData.accelerometer.x = data.accelerometer.x;
+  sensorData.accelerometer.y = data.accelerometer.y;
+  sensorData.accelerometer.z = data.accelerometer.z;
+});
+
+function updateTableData() {
+  const decimalPlaces = 3;
+  const tableAccX = document.getElementById("accelerometer-x");
+  tableAccX.innerText = Number(sensorData.accelerometer.x).toFixed(decimalPlaces);
+  const tableAccY = document.getElementById("accelerometer-y");
+  tableAccY.innerText = Number(sensorData.accelerometer.y).toFixed(decimalPlaces);
+  const tableAccZ = document.getElementById("accelerometer-z");
+  tableAccZ.innerText = Number(sensorData.accelerometer.z).toFixed(decimalPlaces);
+
+
+  window.requestAnimationFrame(updateTableData);
+}
+
+// setInterval(function () {}, 500);
 
 $("#new-game").click(function () {
   board.newGame();
