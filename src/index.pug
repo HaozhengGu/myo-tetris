@@ -16,49 +16,50 @@ html(lang="en")
         div(id="controls" class='labels')
           span Please select the control method:
           form
+            i(class="fa-solid fa-la fa-keyboard")
+            i(class="fa-solid fa-la fa-hand-fist")
+            i(class="fa-solid fa-la fa-up-down-left-right")
             select(id="control-method")
               option(id="keyboard-control" value="keyboard") Keyboard
-                i(class="fa-solid fa-xl fa-keyboard")
-              option(id="gesture-control" value="gesture") Gesture 
-                i(class="fa-solid fa-xl fa-hand-fist")
-              option(id="arm-control" value="arm") Arm 
-                i(class="fa-solid fa-xl fa-up-down-left-right")
+              option(id="gesture-control" value="gesture") Gesture
+              option(id="arm-control" value="arm") Arm
           form
-            select(id="rotate") Rotate 
-              option(value="fist") Fist
+            i(class="fa-solid fa-la fa-arrow-left")
+            label Left:
+            select(id="leftSelect")
               option(value="wave-in") Wave in
               option(value="wave-out") Wave out
+              option(value="fist") Fist
               option(value="fingers-spread") Finger spread
               option(value="double-tap") Double tap
-            select(id="left") Left 
+            br
+            i(class="fa-solid fa-la fa-arrow-right")
+            label Right:
+            select(id="rightSelect")
+              option(value="wave-out") Wave out
+              option(value="fist") Fist
+              option(value="fingers-spread") Finger spread
+              option(value="double-tap") Double tap
+              option(value="wave-in") Wave in
+            br
+            i(class="fa-solid fa-la fa-undo flipx")
+            label Rotate:
+            select(id="rotateSelect")
+              option(value="fist") Fist
+              option(value="fingers-spread") Finger spread
+              option(value="double-tap") Double tap
               option(value="wave-in") Wave in
               option(value="wave-out") Wave out
+            br
+            i(class="fa-solid fa-la fa-arrow-down")
+            label Down:
+            select(id="downSelect")
               option(value="fingers-spread") Finger spread
               option(value="double-tap") Double tap
-              option(value="fist") Fist
-            select(id="right") Right 
-              option(value="wave-out") Wave out
-              option(value="fingers-spread") Finger spread
-              option(value="double-tap") Double tap
-              option(value="fist") Fist
-              option(value="wave-in") Wave in
-            select(id="down") Down 
-              option(value="fingers-spread") Finger spread
-              option(value="double-tap") Double tap
-              option(value="fist") Fist
               option(value="wave-in") Wave in
               option(value="wave-out") Wave out
-            //- input(id="keyboard-control" type="radio" name="method" value="keyboard")
-            //- label(for="keyboard-control") Keyboard 
-            //-   i(class="fa-solid fa-xl fa-keyboard")
-            //- br
-            //- input(id="gesture-control" type="radio" name="method" value="gesture")
-            //- label(for="gesture-control") Gesture 
-            //-   i(class="fa-solid fa-xl fa-hand-fist")
-            //- br
-            //- input(id="arm-control" type="radio" name="method" value="arm")
-            //- label(for="arm-control") Arm 
-            //-   i(class="fa-solid fa-xl fa-up-down-left-right")
+              option(value="fist") Fist
+
       div(class="container-item")
         div(id='outer-board')
           div(id='board') 

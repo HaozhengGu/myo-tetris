@@ -729,35 +729,133 @@ $(document).keydown(function (e) {
   e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 
-Myo.on('fist', function(){  
-  if (controlMethod === "gesture") {
-    console.log('Rotate!');
-    // this.vibrate();
-    board.upKeyPress();
-  }
-});
-
 Myo.on('wave_in', function(){  
   if (controlMethod === "gesture") {
-    console.log('Move left!');
-    // this.vibrate();
-    board.leftKeyPress();
+    const left = document.querySelector('#leftSelect');
+    const right = document.querySelector('#rightSelect');
+    const rotate = document.querySelector('#rotateSelect');
+    const down = document.querySelector('#downSelect');
+    const leftIndex = left.selectedIndex;
+    const rightIndex = right.selectedIndex;
+    const rotateIndex = rotate.selectedIndex;
+    const downIndex = down.selectedIndex;
+    if (left[leftIndex].value === "wave-in") {
+      board.leftKeyPress();
+      console.log('Move left!');
+    } else if (right[rightIndex].value === "wave-in") {
+      board.rightKeyPress();
+      console.log('Move right!');
+    } else if (rotate[rotateIndex].value === "wave-in") {
+      board.upKeyPress();
+      console.log('Rotate!');
+    } else if (down[downIndex].value === "wave-in") {
+      board.downKeyPress();
+      console.log('Down!');
+    }
   }
 });
 
 Myo.on('wave_out', function(){  
   if (controlMethod === "gesture") {
-    console.log('Move right!');
-    // this.vibrate();
-    board.rightKeyPress();
+    const left = document.querySelector('#leftSelect');
+    const right = document.querySelector('#rightSelect');
+    const rotate = document.querySelector('#rotateSelect');
+    const down = document.querySelector('#downSelect');
+    const leftIndex = left.selectedIndex;
+    const rightIndex = right.selectedIndex;
+    const rotateIndex = rotate.selectedIndex;
+    const downIndex = down.selectedIndex;
+    if (left[leftIndex].value === "wave-out") {
+      board.leftKeyPress();
+      console.log('Move left!');
+    } else if (right[rightIndex].value === "wave-out") {
+      board.rightKeyPress();
+      console.log('Move right!');
+    } else if (rotate[rotateIndex].value === "wave-out") {
+      board.upKeyPress();
+      console.log('Rotate!');
+    } else if (down[downIndex].value === "wave-out") {
+      board.downKeyPress();
+      console.log('Down!');
+    }
+  }
+});
+
+Myo.on('fist', function(){  
+  if (controlMethod === "gesture") {
+    const left = document.querySelector('#leftSelect');
+    const right = document.querySelector('#rightSelect');
+    const rotate = document.querySelector('#rotateSelect');
+    const down = document.querySelector('#downSelect');
+    const leftIndex = left.selectedIndex;
+    const rightIndex = right.selectedIndex;
+    const rotateIndex = rotate.selectedIndex;
+    const downIndex = down.selectedIndex;
+    if (left[leftIndex].value === "fist") {
+      board.leftKeyPress();
+      console.log('Move left!');
+    } else if (right[rightIndex].value === "fist") {
+      board.rightKeyPress();
+      console.log('Move right!');
+    } else if (rotate[rotateIndex].value === "fist") {
+      board.upKeyPress();
+      console.log('Rotate!');
+    } else if (down[downIndex].value === "fist") {
+      board.downKeyPress();
+      console.log('Down!');
+    }
   }
 });
 
 Myo.on('fingers_spread', function(){  
   if (controlMethod === "gesture") {
-    console.log('Down!');
-    // this.vibrate();
-    board.downKeyPress();
+    const left = document.querySelector('#leftSelect');
+    const right = document.querySelector('#rightSelect');
+    const rotate = document.querySelector('#rotateSelect');
+    const down = document.querySelector('#downSelect');
+    const leftIndex = left.selectedIndex;
+    const rightIndex = right.selectedIndex;
+    const rotateIndex = rotate.selectedIndex;
+    const downIndex = down.selectedIndex;
+    if (left[leftIndex].value === "fingers-spread") {
+      board.leftKeyPress();
+      console.log('Move left!');
+    } else if (right[rightIndex].value === "fingers-spread") {
+      board.rightKeyPress();
+      console.log('Move right!');
+    } else if (rotate[rotateIndex].value === "fingers-spread") {
+      board.upKeyPress();
+      console.log('Rotate!');
+    } else if (down[downIndex].value === "fingers-spread") {
+      board.downKeyPress();
+      console.log('Down!');
+    }
+  }
+});
+
+Myo.on('double_tap',function(){
+  if (controlMethod === "gesture") {
+    const left = document.querySelector('#leftSelect');
+    const right = document.querySelector('#rightSelect');
+    const rotate = document.querySelector('#rotateSelect');
+    const down = document.querySelector('#downSelect');
+    const leftIndex = left.selectedIndex;
+    const rightIndex = right.selectedIndex;
+    const rotateIndex = rotate.selectedIndex;
+    const downIndex = down.selectedIndex;
+    if (left[leftIndex].value === "double-tap") {
+      board.leftKeyPress();
+      console.log('Move left!');
+    } else if (right[rightIndex].value === "double-tap") {
+      board.rightKeyPress();
+      console.log('Move right!');
+    } else if (rotate[rotateIndex].value === "double-tap") {
+      board.upKeyPress();
+      console.log('Rotate!');
+    } else if (down[downIndex].value === "double-tap") {
+      board.downKeyPress();
+      console.log('Down!');
+    }
   }
 });
 
