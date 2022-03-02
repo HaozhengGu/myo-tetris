@@ -691,62 +691,74 @@ class Board {
 // Initialisation
 let board = new Board();
 window.requestAnimationFrame(updateTableData);
+// localStorage.removeItem("local-storage");
+let controlMethod = "keyboard";
+registerSelectHandler();
 
 const accelerometerCalibratedButton = document.getElementById("accelerometer-calibrate");
 accelerometerCalibratedButton.addEventListener("click", calibrateAccelerometer);
 
 $(document).keydown(function (e) {
-  switch (e.which) {
-    case 37: // left
-      board.leftKeyPress();
-      break;
+  if (controlMethod === "keyboard") {
+    switch (e.which) {
+      case 37: // left
+        board.leftKeyPress();
+        break;
 
-    case 38: // up
-      board.upKeyPress();
-      break;
+      case 38: // up
+        board.upKeyPress();
+        break;
 
-    case 39: // right
-      board.rightKeyPress();
-      break;
+      case 39: // right
+        board.rightKeyPress();
+        break;
 
-    case 40: // down
-      board.downKeyPress();
-      break;
+      case 40: // down
+        board.downKeyPress();
+        break;
 
-    case 78: // n
-      board.newGame();
-      break;
+      case 78: // n
+        board.newGame();
+        break;
 
-    default:
-      console.log(e.which);
-      break; // exit this handler for other keys
+      default:
+        console.log(e.which);
+        break; // exit this handler for other keys
+    }    
   }
   e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 
-
 Myo.on('fist', function(){  
-  console.log('Rotate!');
-  // this.vibrate();
-  board.upKeyPress();
+  if (controlMethod === "gesture") {
+    console.log('Rotate!');
+    // this.vibrate();
+    board.upKeyPress();
+  }
 });
 
 Myo.on('wave_in', function(){  
-  console.log('Move left!');
-  // this.vibrate();
-  board.leftKeyPress();
+  if (controlMethod === "gesture") {
+    console.log('Move left!');
+    // this.vibrate();
+    board.leftKeyPress();
+  }
 });
 
 Myo.on('wave_out', function(){  
-  console.log('Move right!');
-  // this.vibrate();
-  board.rightKeyPress();
+  if (controlMethod === "gesture") {
+    console.log('Move right!');
+    // this.vibrate();
+    board.rightKeyPress();
+  }
 });
 
 Myo.on('fingers_spread', function(){  
-  console.log('Speed up!');
-  // this.vibrate();
-  board.downKeyPress();
+  if (controlMethod === "gesture") {
+    console.log('Down!');
+    // this.vibrate();
+    board.downKeyPress();
+  }
 });
 
 
@@ -766,10 +778,10 @@ function onClickControl() {
 
 function onClickSettings() {
   const settings = document.getElementById("sensor-data");
-  if (settings.style.display === "none") {
-    settings.style.display = "block";
+  if (settings.parentElement.style.visibility === "hidden") {
+    settings.parentElement.style.visibility = "visible";
   } else {
-    settings.style.display = "none";
+    settings.parentElement.style.visibility = "hidden";
   }
 }
 
@@ -814,6 +826,7 @@ Myo.on("imu", function (data) {
   sensorData.orientation.y = data.orientation.y;
   sensorData.orientation.z = data.orientation.z;
   sensorData.orientation.w = data.orientation.w;
+  // arm movement
 });
 
 function updateTableData() {
@@ -866,7 +879,16 @@ function updateTableData() {
   window.requestAnimationFrame(updateTableData);
 }
 
+
+
 // setInterval(function () {}, 500);
+function registerSelectHandler () {
+  const select = document.getElementById('control-method');
+
+  select.addEventListener('change', (event) => {
+    controlMethod = event.target.value;
+  });
+}
 
 $("#new-game").click(function () {
   board.newGame();
