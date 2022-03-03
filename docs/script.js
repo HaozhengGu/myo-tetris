@@ -981,6 +981,12 @@ function updateTableData() {
   const meterAccZCalib = document.getElementById("cal-z");
   meterAccZCalib.value = calibAccZ;
 
+  if (Number(accelerometerLengthCalib).toFixed(decimalPlaces) > 1) {
+    console.log("x: " + Number(calibAccX).toFixed(decimalPlaces));
+    console.log("y: " + Number(calibAccY).toFixed(decimalPlaces));
+    console.log("z: " + Number(calibAccZ).toFixed(decimalPlaces));
+  }
+
   window.requestAnimationFrame(updateTableData);
 }
 
