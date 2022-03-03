@@ -89,7 +89,7 @@ html(lang="en")
             button(class='btn btn-rounded' id="settings")
               i(class="fa-solid fa-2xl fa-gear")
 
-      div(class="container-item")
+      div(class="container-item labels")
         table(id='sensor-data')
           thead
             tr
@@ -111,7 +111,7 @@ html(lang="en")
               td(id="accelerometer-length") 0.14
             tr
               td(colspan="2")
-                button(id="accelerometer-calibrate") Calibrate
+                button(id="accelerometer-calibrate" class="btn") Calibrate
             tr
               th x (calibrated)
               td(id="accelerometer-x-calib") 0.11
@@ -149,7 +149,14 @@ html(lang="en")
             tr
               th w
               td(id="orientation-w") 0.14
-            
+        label x (calibrated)
+        meter(id="cal-x" min="-2" max="2" value="0.11")
+        br
+        label y (calibrated)
+        meter(id="cal-y" min="-2" max="2" value="0.12")
+        br
+        label z (calibrated)
+        meter(id="cal-z" min="-2" max="2" value="0.13")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/animatelo/1.0.3/animatelo.min.js')
     script(src="./script.js")

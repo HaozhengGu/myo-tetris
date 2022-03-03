@@ -973,6 +973,13 @@ function updateTableData() {
   const tableOriW = document.getElementById("orientation-w");
   tableOriW.innerText = Number(sensorData.orientation.w).toFixed(decimalPlaces);
 
+  
+  const meterAccXCalib = document.getElementById("cal-x");
+  meterAccXCalib.value = calibAccX;
+  const meterAccYCalib = document.getElementById("cal-y");
+  meterAccYCalib.value = calibAccY;
+  const meterAccZCalib = document.getElementById("cal-z");
+  meterAccZCalib.value = calibAccZ;
 
   window.requestAnimationFrame(updateTableData);
 }
