@@ -689,15 +689,35 @@ class Board {
 }
 
 // Initialisation
-let board = new Board();
-window.requestAnimationFrame(updateTableData);
-// localStorage.removeItem("local-storage");
+
+// let controlMethod = localStorage.getItem('control-method') ? localStorage.getItem('control-method') : "keyboard";
+
+// let controlMethod = "keyboard";
+// if (localStorage.getItem('control-method')) {
+//   controlMethod = localStorage.getItem('control-method');
+// }
+
+// let controlMethod = localStorage.getItem('control-method') || "keyboard";
+
 let controlMethod = "keyboard";
-registerSelectHandler();
+let leftGesture = "wave-in";
+let rightGesture = "wave-out";
+let rotateGesture = "fist";
+let downGesture = "fingers-spread";
+let lengthThreshold = 4;
+
+let valuesLogged = false;
+let board = new Board();
+
+window.requestAnimationFrame(updateTableData);
+load();
+updateUI();
+registerHandlers();
 
 const accelerometerCalibratedButton = document.getElementById("accelerometer-calibrate");
 accelerometerCalibratedButton.addEventListener("click", calibrateAccelerometer);
 
+// keyboard control
 $(document).keydown(function (e) {
   if (controlMethod === "keyboard") {
     switch (e.which) {
@@ -729,26 +749,19 @@ $(document).keydown(function (e) {
   e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 
+// make user selectable gestures for different actions
 Myo.on('wave_in', function(){  
   if (controlMethod === "gesture") {
-    const left = document.querySelector('#leftSelect');
-    const right = document.querySelector('#rightSelect');
-    const rotate = document.querySelector('#rotateSelect');
-    const down = document.querySelector('#downSelect');
-    const leftIndex = left.selectedIndex;
-    const rightIndex = right.selectedIndex;
-    const rotateIndex = rotate.selectedIndex;
-    const downIndex = down.selectedIndex;
-    if (left[leftIndex].value === "wave-in") {
+    if (leftGesture === "wave-in") {
       board.leftKeyPress();
       console.log('Move left!');
-    } else if (right[rightIndex].value === "wave-in") {
+    } else if (rightGesture === "wave-in") {
       board.rightKeyPress();
       console.log('Move right!');
-    } else if (rotate[rotateIndex].value === "wave-in") {
+    } else if (rotateGesture === "wave-in") {
       board.upKeyPress();
       console.log('Rotate!');
-    } else if (down[downIndex].value === "wave-in") {
+    } else if (downGesture === "wave-in") {
       board.downKeyPress();
       console.log('Down!');
     }
@@ -757,24 +770,16 @@ Myo.on('wave_in', function(){
 
 Myo.on('wave_out', function(){  
   if (controlMethod === "gesture") {
-    const left = document.querySelector('#leftSelect');
-    const right = document.querySelector('#rightSelect');
-    const rotate = document.querySelector('#rotateSelect');
-    const down = document.querySelector('#downSelect');
-    const leftIndex = left.selectedIndex;
-    const rightIndex = right.selectedIndex;
-    const rotateIndex = rotate.selectedIndex;
-    const downIndex = down.selectedIndex;
-    if (left[leftIndex].value === "wave-out") {
+    if (leftGesture === "wave-out") {
       board.leftKeyPress();
       console.log('Move left!');
-    } else if (right[rightIndex].value === "wave-out") {
+    } else if (rightGesture === "wave-out") {
       board.rightKeyPress();
       console.log('Move right!');
-    } else if (rotate[rotateIndex].value === "wave-out") {
+    } else if (rotateGesture === "wave-out") {
       board.upKeyPress();
       console.log('Rotate!');
-    } else if (down[downIndex].value === "wave-out") {
+    } else if (downGesture === "wave-out") {
       board.downKeyPress();
       console.log('Down!');
     }
@@ -783,24 +788,16 @@ Myo.on('wave_out', function(){
 
 Myo.on('fist', function(){  
   if (controlMethod === "gesture") {
-    const left = document.querySelector('#leftSelect');
-    const right = document.querySelector('#rightSelect');
-    const rotate = document.querySelector('#rotateSelect');
-    const down = document.querySelector('#downSelect');
-    const leftIndex = left.selectedIndex;
-    const rightIndex = right.selectedIndex;
-    const rotateIndex = rotate.selectedIndex;
-    const downIndex = down.selectedIndex;
-    if (left[leftIndex].value === "fist") {
+    if (leftGesture === "fist") {
       board.leftKeyPress();
       console.log('Move left!');
-    } else if (right[rightIndex].value === "fist") {
+    } else if (rightGesture === "fist") {
       board.rightKeyPress();
       console.log('Move right!');
-    } else if (rotate[rotateIndex].value === "fist") {
+    } else if (rotateGesture === "fist") {
       board.upKeyPress();
       console.log('Rotate!');
-    } else if (down[downIndex].value === "fist") {
+    } else if (downGesture === "fist") {
       board.downKeyPress();
       console.log('Down!');
     }
@@ -809,57 +806,41 @@ Myo.on('fist', function(){
 
 Myo.on('fingers_spread', function(){  
   if (controlMethod === "gesture") {
-    const left = document.querySelector('#leftSelect');
-    const right = document.querySelector('#rightSelect');
-    const rotate = document.querySelector('#rotateSelect');
-    const down = document.querySelector('#downSelect');
-    const leftIndex = left.selectedIndex;
-    const rightIndex = right.selectedIndex;
-    const rotateIndex = rotate.selectedIndex;
-    const downIndex = down.selectedIndex;
-    if (left[leftIndex].value === "fingers-spread") {
+    if (leftGesture === "fingers-spread") {
       board.leftKeyPress();
       console.log('Move left!');
-    } else if (right[rightIndex].value === "fingers-spread") {
+    } else if (rightGesture === "fingers-spread") {
       board.rightKeyPress();
       console.log('Move right!');
-    } else if (rotate[rotateIndex].value === "fingers-spread") {
+    } else if (rotateGesture === "fingers-spread") {
       board.upKeyPress();
       console.log('Rotate!');
-    } else if (down[downIndex].value === "fingers-spread") {
+    } else if (downGesture === "fingers-spread") {
       board.downKeyPress();
       console.log('Down!');
     }
   }
 });
 
-Myo.on('double_tap',function(){
+Myo.on('double_tap', function(){  
   if (controlMethod === "gesture") {
-    const left = document.querySelector('#leftSelect');
-    const right = document.querySelector('#rightSelect');
-    const rotate = document.querySelector('#rotateSelect');
-    const down = document.querySelector('#downSelect');
-    const leftIndex = left.selectedIndex;
-    const rightIndex = right.selectedIndex;
-    const rotateIndex = rotate.selectedIndex;
-    const downIndex = down.selectedIndex;
-    if (left[leftIndex].value === "double-tap") {
+    if (leftGesture === "double-tap") {
       board.leftKeyPress();
       console.log('Move left!');
-    } else if (right[rightIndex].value === "double-tap") {
+    } else if (rightGesture === "double-tap") {
       board.rightKeyPress();
       console.log('Move right!');
-    } else if (rotate[rotateIndex].value === "double-tap") {
+    } else if (rotateGesture === "double-tap") {
       board.upKeyPress();
       console.log('Rotate!');
-    } else if (down[downIndex].value === "double-tap") {
+    } else if (downGesture === "double-tap") {
       board.downKeyPress();
       console.log('Down!');
     }
   }
 });
 
-
+// add hide function to button
 const buttonControl = document.getElementById("control");
 const buttonSettings = document.getElementById("settings");
 buttonControl.addEventListener("click", onClickControl);
@@ -927,6 +908,7 @@ Myo.on("imu", function (data) {
   // arm movement
 });
 
+// table
 function updateTableData() {
   const decimalPlaces = 3;
   const tableAccX = document.getElementById("accelerometer-x");
@@ -940,6 +922,7 @@ function updateTableData() {
   const tableAccLength = document.getElementById("accelerometer-length");
   tableAccLength.innerText = Number(accelerometerLength).toFixed(decimalPlaces);
 
+  // calibrate accelerometer data
   const calibAccX = sensorData.accelerometer.x - sensorData.accelerometer.calib.x;
   const calibAccY = sensorData.accelerometer.y - sensorData.accelerometer.calib.y;
   const calibAccZ = sensorData.accelerometer.z - sensorData.accelerometer.calib.z;
@@ -955,7 +938,7 @@ function updateTableData() {
   const tableAccLengthCalib = document.getElementById("accelerometer-length-calib");
   tableAccLengthCalib.innerText = Number(accelerometerLengthCalib).toFixed(decimalPlaces);
 
-  
+  // add gyroscope and orientation data in the table
   const tableGyrX = document.getElementById("gyroscope-x");
   tableGyrX.innerText = Number(sensorData.gyroscope.x).toFixed(decimalPlaces);
   const tableGyrY = document.getElementById("gyroscope-y");
@@ -963,7 +946,6 @@ function updateTableData() {
   const tableGyrZ = document.getElementById("gyroscope-z");
   tableGyrZ.innerText = Number(sensorData.gyroscope.z).toFixed(decimalPlaces);
 
-  
   const tableOriX = document.getElementById("orientation-x");
   tableOriX.innerText = Number(sensorData.orientation.x).toFixed(decimalPlaces);
   const tableOriY = document.getElementById("orientation-y");
@@ -973,7 +955,7 @@ function updateTableData() {
   const tableOriW = document.getElementById("orientation-w");
   tableOriW.innerText = Number(sensorData.orientation.w).toFixed(decimalPlaces);
 
-  
+  // add meters to display calibrated accelerometers
   const meterAccXCalib = document.getElementById("cal-x");
   meterAccXCalib.value = calibAccX;
   const meterAccYCalib = document.getElementById("cal-y");
@@ -981,25 +963,116 @@ function updateTableData() {
   const meterAccZCalib = document.getElementById("cal-z");
   meterAccZCalib.value = calibAccZ;
 
-  if (Number(accelerometerLengthCalib).toFixed(decimalPlaces) > 1) {
-    console.log("x: " + Number(calibAccX).toFixed(decimalPlaces));
-    console.log("y: " + Number(calibAccY).toFixed(decimalPlaces));
-    console.log("z: " + Number(calibAccZ).toFixed(decimalPlaces));
+  // print x-, y-, z-values in console if length > threshold
+  if ((accelerometerLengthCalib > lengthThreshold) && !valuesLogged) {
+    console.log("x: " + calibAccX);
+    console.log("y: " + calibAccY);
+    console.log("z: " + calibAccZ);
+    valuesLogged = true;
+  }
+  if (valuesLogged && (accelerometerLengthCalib < lengthThreshold)) {
+    valuesLogged = false;
   }
 
   window.requestAnimationFrame(updateTableData);
 }
 
+function load () {
+  if (localStorage.getItem('control-method')) {
+    controlMethod = localStorage.getItem('control-method');
+  }
+  if (localStorage.getItem('leftSelect')) {
+    leftGesture = localStorage.getItem('leftSelect');
+  }
+  if (localStorage.getItem('rightSelect')) {
+    rightGesture = localStorage.getItem('rightSelect');
+  }
+  if (localStorage.getItem('rotateSelect')) {
+    rotateGesture = localStorage.getItem('rotateSelect');
+  }
+  if (localStorage.getItem('downSelect')) {
+    downGesture = localStorage.getItem('downSelect');
+  }
+  if (localStorage.getItem('length-threshold')) {
+    lengthThreshold = localStorage.getItem('length-threshold');
+  }
+}
 
+function updateUI () {
+  document.getElementById('control-method').value = controlMethod;
+  document.getElementById('leftSelect').value = leftGesture;
+  document.getElementById('rightSelect').value = rightGesture;
+  document.getElementById('rotateSelect').value = rotateGesture;
+  document.getElementById('downSelect').value = downGesture;
+  document.getElementById('length-threshold').value = lengthThreshold;
+}
 
-// setInterval(function () {}, 500);
-function registerSelectHandler () {
+function save () {
+  localStorage.setItem('control-method', controlMethod);
+  localStorage.setItem('leftSelect', leftGesture);
+  localStorage.setItem('rightSelect', rightGesture);
+  localStorage.setItem('rotateSelect', rotateGesture);
+  localStorage.setItem('downSelect', downGesture);
+  localStorage.setItem('length-threshold', lengthThreshold);
+}
+
+function registerHandlers () {
+  registerSelectControlHandler();
+  registerSelectLeftHandler();
+  registerSelectRightHandler();
+  registerSelectRotateHandler();
+  registerSelectDownHandler();
+  registerInputThresholdHandler();
+}
+
+function registerSelectControlHandler () {
   const select = document.getElementById('control-method');
-
   select.addEventListener('change', (event) => {
     controlMethod = event.target.value;
+    save();
   });
 }
+
+function registerSelectLeftHandler () {
+  const select = document.getElementById('leftSelect');
+  select.addEventListener('change', (event) => {
+    leftGesture = event.target.value;
+    save();
+  });
+}
+
+function registerSelectRightHandler () {
+  const select = document.getElementById('rightSelect');
+  select.addEventListener('change', (event) => {
+    rightGesture = event.target.value;
+    save();
+  });
+}
+
+function registerSelectRotateHandler () {
+  const select = document.getElementById('rotateSelect');
+  select.addEventListener('change', (event) => {
+    rotateGesture = event.target.value;
+    save();
+  });
+}
+
+function registerSelectDownHandler () {
+  const select = document.getElementById('downSelect');
+  select.addEventListener('change', (event) => {
+    downGesture = event.target.value;
+    save();
+  });
+}
+
+function registerInputThresholdHandler () {
+  const threshold = document.getElementById('length-threshold');
+  threshold.addEventListener('change', (event) => {
+    lengthThreshold = event.target.value;
+    save();
+  });
+}
+
 
 $("#new-game").click(function () {
   board.newGame();

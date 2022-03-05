@@ -15,6 +15,7 @@ html(lang="en")
       div(class="container-item")
         div(id="controls" class='labels')
           span Please select the control method:
+          //- make user selectable keyboard-only or gesture-only
           form
             i(class="fa-solid fa-la fa-keyboard")
             i(class="fa-solid fa-la fa-hand-fist")
@@ -23,6 +24,7 @@ html(lang="en")
               option(id="keyboard-control" value="keyboard") Keyboard
               option(id="gesture-control" value="gesture") Gesture
               option(id="arm-control" value="arm") Arm
+          //- make user selectable gestures for different actions
           form
             i(class="fa-solid fa-la fa-arrow-left")
             label Left:
@@ -59,7 +61,7 @@ html(lang="en")
               option(value="wave-in") Wave in
               option(value="wave-out") Wave out
               option(value="fist") Fist
-
+      //- game interface
       div(class="container-item")
         div(id='outer-board')
           div(id='board') 
@@ -88,7 +90,7 @@ html(lang="en")
               i(class="fa-solid fa-2xl fa-gamepad")
             button(class='btn btn-rounded' id="settings")
               i(class="fa-solid fa-2xl fa-gear")
-
+      //- add gyroscope and orientation data in the table
       div(class="container-item labels")
         table(id='sensor-data')
           thead
@@ -149,6 +151,7 @@ html(lang="en")
             tr
               th w
               td(id="orientation-w") 0.14
+        //- add meters to display calibrated accelerometers
         label x (calibrated)
         meter(id="cal-x" min="-1" max="1" value="0.11")
         br
@@ -157,6 +160,10 @@ html(lang="en")
         br
         label z (calibrated)
         meter(id="cal-z" min="-1" max="1" value="0.13")
+        br
+        label length threshold
+        br
+        input(type="range" id="length-threshold" min="0" max="4" step="0.5")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/animatelo/1.0.3/animatelo.min.js')
     script(src="./script.js")
