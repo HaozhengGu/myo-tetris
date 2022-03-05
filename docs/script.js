@@ -955,13 +955,40 @@ function updateTableData() {
   const tableOriW = document.getElementById("orientation-w");
   tableOriW.innerText = Number(sensorData.orientation.w).toFixed(decimalPlaces);
 
-  // add meters to display calibrated accelerometers
+  // add meters to table
+  const meterAccX = document.getElementById("acc-x");
+  meterAccX.value = tableAccX.innerText;
+  const meterAccY = document.getElementById("acc-y");
+  meterAccY.value = tableAccY.innerText;
+  const meterAccZ = document.getElementById("acc-z");
+  meterAccZ.value = tableAccZ.innerText;
+  const meterAccLength = document.getElementById("acc-length");
+  meterAccLength.value = tableAccLength.innerText;
+
   const meterAccXCalib = document.getElementById("cal-x");
   meterAccXCalib.value = calibAccX;
   const meterAccYCalib = document.getElementById("cal-y");
   meterAccYCalib.value = calibAccY;
   const meterAccZCalib = document.getElementById("cal-z");
   meterAccZCalib.value = calibAccZ;
+  const meterAccLengthCalib = document.getElementById("cal-length");
+  meterAccLengthCalib.value = calibAccZ;
+
+  const meterGyrX = document.getElementById("gyr-x");
+  meterGyrX.value = tableGyrX.innerText;
+  const meterGyrY = document.getElementById("gyr-y");
+  meterGyrY.value = tableGyrY.innerText;
+  const meterGyrZ = document.getElementById("gyr-z");
+  meterGyrZ.value = tableGyrZ.innerText;
+
+  const meterOriX = document.getElementById("ori-x");
+  meterOriX.value = tableOriX.innerText;
+  const meterOriY = document.getElementById("ori-y");
+  meterOriY.value = tableOriY.innerText;
+  const meterOriZ = document.getElementById("ori-z");
+  meterOriZ.value = tableOriZ.innerText;
+  const meterOriW = document.getElementById("ori-w");
+  meterOriW.value = tableOriW.innerText;
 
   // print x-, y-, z-values in console if length > threshold
   if ((accelerometerLengthCalib > lengthThreshold) && !valuesLogged) {
