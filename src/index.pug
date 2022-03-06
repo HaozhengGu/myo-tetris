@@ -17,50 +17,52 @@ html(lang="en")
           span Please select the control method:
           //- make user selectable keyboard-only or gesture-only
           form
-            i(class="fa-solid fa-la fa-keyboard")
-            i(class="fa-solid fa-la fa-hand-fist")
-            i(class="fa-solid fa-la fa-up-down-left-right")
             select(id="control-method")
               option(id="keyboard-control" value="keyboard") Keyboard
               option(id="gesture-control" value="gesture") Gesture
               option(id="arm-control" value="arm") Arm
           //- make user selectable gestures for different actions
           form
-            i(class="fa-solid fa-la fa-arrow-left")
-            label Left:
-            select(id="leftSelect")
-              option(value="wave-in") Wave in
-              option(value="wave-out") Wave out
-              option(value="fist") Fist
-              option(value="fingers-spread") Finger spread
-              option(value="double-tap") Double tap
-            br
-            i(class="fa-solid fa-la fa-arrow-right")
-            label Right:
-            select(id="rightSelect")
-              option(value="wave-out") Wave out
-              option(value="fist") Fist
-              option(value="fingers-spread") Finger spread
-              option(value="double-tap") Double tap
-              option(value="wave-in") Wave in
-            br
-            i(class="fa-solid fa-la fa-undo flipx")
-            label Rotate:
-            select(id="rotateSelect")
-              option(value="fist") Fist
-              option(value="fingers-spread") Finger spread
-              option(value="double-tap") Double tap
-              option(value="wave-in") Wave in
-              option(value="wave-out") Wave out
-            br
-            i(class="fa-solid fa-la fa-arrow-down")
-            label Down:
-            select(id="downSelect")
-              option(value="fingers-spread") Finger spread
-              option(value="double-tap") Double tap
-              option(value="wave-in") Wave in
-              option(value="wave-out") Wave out
-              option(value="fist") Fist
+            div(id="icons")
+              i(class="fa-solid fa-2xl fa-keyboard" id="keyboard-icon")
+              i(class="fa-solid fa-2xl fa-hand-fist" id="gesture-icon")
+              i(class="fa-solid fa-2xl fa-up-down-left-right" id="arm-icon")
+            div(id="gesture-options")
+              i(class="fa-solid fa-la fa-arrow-left")
+              label Left:
+              select(id="leftSelect")
+                option(value="wave-in") Wave in
+                option(value="wave-out") Wave out
+                option(value="fist") Fist
+                option(value="fingers-spread") Finger spread
+                option(value="double-tap") Double tap
+              br
+              i(class="fa-solid fa-la fa-arrow-right")
+              label Right:
+              select(id="rightSelect")
+                option(value="wave-out") Wave out
+                option(value="fist") Fist
+                option(value="fingers-spread") Finger spread
+                option(value="double-tap") Double tap
+                option(value="wave-in") Wave in
+              br
+              i(class="fa-solid fa-la fa-undo flipx")
+              label Rotate:
+              select(id="rotateSelect")
+                option(value="fist") Fist
+                option(value="fingers-spread") Finger spread
+                option(value="double-tap") Double tap
+                option(value="wave-in") Wave in
+                option(value="wave-out") Wave out
+              br
+              i(class="fa-solid fa-la fa-arrow-down")
+              label Down:
+              select(id="downSelect")
+                option(value="fingers-spread") Finger spread
+                option(value="double-tap") Double tap
+                option(value="wave-in") Wave in
+                option(value="wave-out") Wave out
+                option(value="fist") Fist
       //- game interface
       div(class="container-item")
         div(id='outer-board')

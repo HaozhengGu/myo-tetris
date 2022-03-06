@@ -709,6 +709,15 @@ let lengthThreshold = 4;
 let valuesLogged = false;
 let board = new Board();
 
+const KeyboardIcon = document.getElementById("keyboard-icon");
+const GestureIcon = document.getElementById("gesture-icon");
+const ArmIcon = document.getElementById("arm-icon");
+const gestureOptions = document.getElementById("gesture-options");
+KeyboardIcon.style.display = "none";
+GestureIcon.style.display = "none";
+ArmIcon.style.display = "none";
+gestureOptions.style.display = "none";
+
 window.requestAnimationFrame(updateTableData);
 load();
 updateUI();
@@ -1007,6 +1016,7 @@ function updateTableData() {
 function load () {
   if (localStorage.getItem('control-method')) {
     controlMethod = localStorage.getItem('control-method');
+    displayIcon();
   }
   if (localStorage.getItem('leftSelect')) {
     leftGesture = localStorage.getItem('leftSelect');
@@ -1022,6 +1032,29 @@ function load () {
   }
   if (localStorage.getItem('length-threshold')) {
     lengthThreshold = localStorage.getItem('length-threshold');
+  }
+}
+
+function displayIcon () {
+  switch (controlMethod) {
+    case "keyboard":
+      KeyboardIcon.style.display = "block";
+      GestureIcon.style.display = "none";
+      ArmIcon.style.display = "none";
+      gestureOptions.style.display = "none";
+      break;
+    case "gesture":
+      KeyboardIcon.style.display = "none";
+      GestureIcon.style.display = "block";
+      ArmIcon.style.display = "none";
+      gestureOptions.style.display = "block";
+      break;
+    case "arm":
+      KeyboardIcon.style.display = "none";
+      GestureIcon.style.display = "none";
+      ArmIcon.style.display = "block";
+      gestureOptions.style.display = "none";
+      break;
   }
 }
 
@@ -1056,6 +1089,7 @@ function registerSelectControlHandler () {
   const select = document.getElementById('control-method');
   select.addEventListener('change', (event) => {
     controlMethod = event.target.value;
+    displayIcon();
     save();
   });
 }
