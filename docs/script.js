@@ -947,6 +947,9 @@ function updateTableData() {
   const tableAccLengthCalib = document.getElementById("accelerometer-length-calib");
   tableAccLengthCalib.innerText = Number(accelerometerLengthCalib).toFixed(decimalPlaces);
 
+  const lengthThr = document.getElementById("length-thr");
+  lengthThr.innerText = lengthThreshold;
+
   // add gyroscope and orientation data in the table
   const tableGyrX = document.getElementById("gyroscope-x");
   tableGyrX.innerText = Number(sensorData.gyroscope.x).toFixed(decimalPlaces);
