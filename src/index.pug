@@ -14,7 +14,7 @@ html(lang="en")
     div(class="container")
       div(class="container-item")
         div(id="controls" class='labels')
-          span Please select the control method:
+          span Please select the control method
           //- make user selectable keyboard-only or gesture-only
           form
             select(id="control-method")
@@ -97,85 +97,98 @@ html(lang="en")
         table(id='sensor-data')
           thead
             tr
-              th(colspan="2") Myo-Armband Sensordaten
+              th(colspan="3") Myo-Armband Sensor Data
           tbody
             tr
-              th(colspan="2") Accelerometer
+              th(colspan="3" class="th-colspan") Accelerometer
             tr
-              th x
-                meter(id="acc-x" min="-1" max="1" value="0.11")
+              td x
               td(id="accelerometer-x") 0.11
+              td
+                meter(id="acc-x" min="-1" max="1" value="0.11")
             tr
-              th y
-                meter(id="acc-y" min="-1" max="1" value="0.12")
+              td y
               td(id="accelerometer-y") 0.12
+              td
+                meter(id="acc-y" min="-1" max="1" value="0.12")
             tr
-              th z
-                meter(id="acc-z" min="-1" max="1" value="0.13")
+              td z
               td(id="accelerometer-z") 0.13
+              td
+                meter(id="acc-z" min="-1" max="1" value="0.13")
             tr
-              th Length
-                meter(id="acc-length" min="-1" max="1" value="0.14")
+              td Length
               td(id="accelerometer-length") 0.14
+              td
+                meter(id="acc-length" min="-1" max="1" value="0.14")
             tr
-              td(colspan="2")
+              th(colspan="3" class="th-colspan") Calibrated accelerometer
                 button(id="accelerometer-calibrate" class="btn btn-rounded")
-                  i(class="fa-solid fa-2xl fa-gauge")
-                label Calibrate
+                  i(class="fa-solid fa-xl fa-gauge-simple")
             tr
-              th x (calibrated)
-                meter(id="cal-x" min="-1" max="1" value="0.11")
+              td x
               td(id="accelerometer-x-calib") 0.11
+              td
+                meter(id="cal-x" min="-1" max="1" value="0.11")
             tr
-              th y (calibrated)
-                meter(id="cal-y" min="-1" max="1" value="0.12")
+              td y
               td(id="accelerometer-y-calib") 0.12
+              td
+                meter(id="cal-y" min="-1" max="1" value="0.12")
             tr
-              th z (calibrated)
-                meter(id="cal-z" min="-1" max="1" value="0.13")
+              td z
               td(id="accelerometer-z-calib") 0.13
+              td
+                meter(id="cal-z" min="-1" max="1" value="0.13")
             tr
-              th Length (calibrated)
-                meter(id="cal-length" min="-1" max="1" value="0.14")
+              td Length
               td(id="accelerometer-length-calib") 0.14
+              td
+                meter(id="cal-length" min="-1" max="1" value="0.14")
             tr
-              th(colspan="2") Gyroscope
-            tr
-              th x
-                meter(id="gyr-x" min="-1" max="1" value="0.11")
-              td(id="gyroscope-x") 0.11
-            tr
-              th y
-                meter(id="gyr-y" min="-1" max="1" value="0.12")
-              td(id="gyroscope-y") 0.12
-            tr
-              th z
-                meter(id="gyr-z" min="-1" max="1" value="0.13")
-              td(id="gyroscope-z") 0.13
-            tr
-              th(colspan="2") Orientation
-            tr
-              th x
-                meter(id="ori-x" min="-1" max="1" value="0.11")
-              td(id="orientation-x") 0.11
-            tr
-              th y
-                meter(id="ori-y" min="-1" max="1" value="0.12")
-              td(id="orientation-y") 0.12
-            tr
-              th z
-                meter(id="ori-z" min="-1" max="1" value="0.13")
-              td(id="orientation-z") 0.13
-            tr
-              th w
-                meter(id="ori-w" min="-1" max="1" value="0.14")
-              td(id="orientation-w") 0.14
-            tr
-              td(colspan="2") length threshold
-                br
-                label 0
+              td Length threshold
+              td 0.5
+              td
                 input(type="range" id="length-threshold" min="0" max="4" step="0.5")
-                label 4
+            tr
+              th(colspan="3" class="th-colspan") Gyroscope
+            tr
+              td x
+              td(id="gyroscope-x") 0.11
+              td
+                meter(id="gyr-x" min="-1" max="1" value="0.11")
+            tr
+              td y
+              td(id="gyroscope-y") 0.12
+              td
+                meter(id="gyr-y" min="-1" max="1" value="0.12")
+            tr
+              td z
+              td(id="gyroscope-z") 0.13
+              td
+                meter(id="gyr-z" min="-1" max="1" value="0.13")
+            tr
+              th(colspan="3" class="th-colspan") Orientation
+            tr
+              td x
+              td(id="orientation-x") 0.11
+              td
+                meter(id="ori-x" min="-1" max="1" value="0.11")
+            tr
+              td y
+              td(id="orientation-y") 0.12
+              td
+                meter(id="ori-y" min="-1" max="1" value="0.12")
+            tr
+              td z
+              td(id="orientation-z") 0.13
+              td
+                meter(id="ori-z" min="-1" max="1" value="0.13")
+            tr
+              td w
+              td(id="orientation-w") 0.14
+              td
+                meter(id="ori-w" min="-1" max="1" value="0.14")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/animatelo/1.0.3/animatelo.min.js')
     script(src="./script.js")
