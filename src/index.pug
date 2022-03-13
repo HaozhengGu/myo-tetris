@@ -27,9 +27,12 @@ html(lang="en")
               i(class="fa-solid fa-2xl fa-keyboard" id="keyboard-icon")
               i(class="fa-solid fa-2xl fa-hand-fist" id="gesture-icon")
               i(class="fa-solid fa-2xl fa-up-down-left-right" id="arm-icon")
+            div(id='descriptions')
+              p(id='keyboard-description') Classic gameplay, use the arrow keys on your computer keyboard to control the movement, rotation and falling of blocks
+              p(id='gesture-description') Change the state of the block by making the corresponding gesture, you can set your preferred control below
+              p(id='arm-description') Change the state of the block by waving the arm
             div(id="gesture-options")
-              i(class="fa-solid fa-la fa-arrow-left")
-              label Left:
+              i(class="fa-solid fa-xl fa-arrow-left gesture-icons")
               select(id="leftSelect")
                 option(value="wave-in") Wave in
                 option(value="wave-out") Wave out
@@ -37,8 +40,7 @@ html(lang="en")
                 option(value="fingers-spread") Finger spread
                 option(value="double-tap") Double tap
               br
-              i(class="fa-solid fa-la fa-arrow-right")
-              label Right:
+              i(class="fa-solid fa-xl fa-arrow-right gesture-icons")
               select(id="rightSelect")
                 option(value="wave-out") Wave out
                 option(value="fist") Fist
@@ -46,8 +48,7 @@ html(lang="en")
                 option(value="double-tap") Double tap
                 option(value="wave-in") Wave in
               br
-              i(class="fa-solid fa-la fa-undo flipx")
-              label Rotate:
+              i(class="fa-solid fa-xl fa-undo flipx gesture-icons")
               select(id="rotateSelect")
                 option(value="fist") Fist
                 option(value="fingers-spread") Finger spread
@@ -55,8 +56,7 @@ html(lang="en")
                 option(value="wave-in") Wave in
                 option(value="wave-out") Wave out
               br
-              i(class="fa-solid fa-la fa-arrow-down")
-              label Down:
+              i(class="fa-solid fa-xl fa-arrow-down gesture-icons")
               select(id="downSelect")
                 option(value="fingers-spread") Finger spread
                 option(value="double-tap") Double tap

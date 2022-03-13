@@ -206,3 +206,26 @@ td:nth-child(3) {
 #icons {
   padding: 30px;
 }
+
+.gesture-icons {
+  margin: 15px;
+}
+
+select, option {
+  margin: auto;
+  margin-top: 10px;
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  color: #303a21;
+  word-wrap: break-word;
+  margin-bottom: 4px;
+  background-color: #c4d6a7;
+}
+
+#controls {
+  border: 2px solid #303a21;
+  padding: 4px;
+  padding-bottom: 20px;
+}

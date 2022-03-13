@@ -712,10 +712,16 @@ let board = new Board();
 const KeyboardIcon = document.getElementById("keyboard-icon");
 const GestureIcon = document.getElementById("gesture-icon");
 const ArmIcon = document.getElementById("arm-icon");
+const KeyboardDescription = document.getElementById("keyboard-description");
+const GestureDescription = document.getElementById("gesture-description");
+const ArmDescription = document.getElementById("arm-description");
 const gestureOptions = document.getElementById("gesture-options");
 KeyboardIcon.style.display = "none";
 GestureIcon.style.display = "none";
 ArmIcon.style.display = "none";
+KeyboardDescription.style.display = "none";
+GestureDescription.style.display = "none";
+ArmDescription.style.display = "none";
 gestureOptions.style.display = "none";
 
 window.requestAnimationFrame(updateTableData);
@@ -1004,9 +1010,27 @@ function updateTableData() {
 
   // print x-, y-, z-values in console if length > threshold
   if ((accelerometerLengthCalib > lengthThreshold) && !valuesLogged) {
-    console.log("x: " + calibAccX);
-    console.log("y: " + calibAccY);
-    console.log("z: " + calibAccZ);
+    console.log("x: " + Number(calibAccX).toFixed(decimalPlaces));
+    console.log("y: " + Number(calibAccY).toFixed(decimalPlaces));
+    console.log("z: " + Number(calibAccZ).toFixed(decimalPlaces));
+    console.log(" ");
+    if (sensorData.orientation.y < sensorData.orientation.z) {
+      board.leftKeyPress();
+    }
+    if (sensorData.orientation.y > sensorData.orientation.z) {
+      board.rightKeyPress();
+    }
+    if (sensorData.orientation.x > sensorData.orientation.w) {
+      board.upKeyPress();
+    }
+    if (sensorData.orientation.x < sensorData.orientation.w) {
+      board.downKeyPress();
+    }
+    console.log("tableOriX: " + Number(sensorData.orientation.x).toFixed(decimalPlaces));
+    console.log("tableOriY: " + Number(sensorData.orientation.y).toFixed(decimalPlaces));
+    console.log("tableOriZ: " + Number(sensorData.orientation.z).toFixed(decimalPlaces));
+    console.log("tableOriW: " + Number(sensorData.orientation.w).toFixed(decimalPlaces));
+    console.log(" ");
     valuesLogged = true;
   }
   if (valuesLogged && (accelerometerLengthCalib < lengthThreshold)) {
@@ -1044,18 +1068,27 @@ function displayIcon () {
       KeyboardIcon.style.display = "block";
       GestureIcon.style.display = "none";
       ArmIcon.style.display = "none";
+      KeyboardDescription.style.display = "block";
+      GestureDescription.style.display = "none";
+      ArmDescription.style.display = "none";
       gestureOptions.style.display = "none";
       break;
     case "gesture":
       KeyboardIcon.style.display = "none";
       GestureIcon.style.display = "block";
       ArmIcon.style.display = "none";
+      KeyboardDescription.style.display = "none";
+      GestureDescription.style.display = "block";
+      ArmDescription.style.display = "none";
       gestureOptions.style.display = "block";
       break;
     case "arm":
       KeyboardIcon.style.display = "none";
       GestureIcon.style.display = "none";
       ArmIcon.style.display = "block";
+      KeyboardDescription.style.display = "none";
+      GestureDescription.style.display = "none";
+      ArmDescription.style.display = "block";
       gestureOptions.style.display = "none";
       break;
   }
