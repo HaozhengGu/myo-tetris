@@ -923,6 +923,25 @@ Myo.on("imu", function (data) {
   // arm movement
 });
 
+setInterval (function armControl() {
+  if (sensorData.accelerometer.y < -0.6) {
+    board.leftKeyPress();
+    console.log("Left!");
+  }
+  if (sensorData.accelerometer.y > 0.6) {
+    board.rightKeyPress();
+    console.log("Right!");
+  }
+  if (sensorData.accelerometer.x > 0.6) {
+    board.upKeyPress();
+    console.log("Rotate!");
+  }
+  if (sensorData.accelerometer.x < -0.6) {
+    board.downKeyPress();
+    console.log("Down!");
+  }
+}, 250);
+
 // table
 function updateTableData() {
   const decimalPlaces = 3;
@@ -1010,27 +1029,32 @@ function updateTableData() {
 
   // print x-, y-, z-values in console if length > threshold
   if ((accelerometerLengthCalib > lengthThreshold) && !valuesLogged) {
-    console.log("x: " + Number(calibAccX).toFixed(decimalPlaces));
-    console.log("y: " + Number(calibAccY).toFixed(decimalPlaces));
-    console.log("z: " + Number(calibAccZ).toFixed(decimalPlaces));
-    console.log(" ");
-    if (sensorData.orientation.y < sensorData.orientation.z) {
-      board.leftKeyPress();
-    }
-    if (sensorData.orientation.y > sensorData.orientation.z) {
-      board.rightKeyPress();
-    }
-    if (sensorData.orientation.x > sensorData.orientation.w) {
-      board.upKeyPress();
-    }
-    if (sensorData.orientation.x < sensorData.orientation.w) {
-      board.downKeyPress();
-    }
-    console.log("tableOriX: " + Number(sensorData.orientation.x).toFixed(decimalPlaces));
-    console.log("tableOriY: " + Number(sensorData.orientation.y).toFixed(decimalPlaces));
-    console.log("tableOriZ: " + Number(sensorData.orientation.z).toFixed(decimalPlaces));
-    console.log("tableOriW: " + Number(sensorData.orientation.w).toFixed(decimalPlaces));
-    console.log(" ");
+    // console.log("x: " + Number(calibAccX).toFixed(decimalPlaces));
+    // console.log("y: " + Number(calibAccY).toFixed(decimalPlaces));
+    // console.log("z: " + Number(calibAccZ).toFixed(decimalPlaces));
+    // console.log(" ");
+
+    // if (sensorData.accelerometer.x > 1) {
+    //   board.leftKeyPress();
+    //   console.log('Move left!');
+    // }
+    // if (sensorData.accelerometer.y > 1) {
+    //   board.rightKeyPress();
+    //   console.log('Move right!');
+    // }
+    // if (sensorData.accelerometer.z > 1) {
+    //   board.upKeyPress();
+    //   console.log('Rotate!');
+    // }
+
+    // if (sensorData.orientation.x < sensorData.orientation.w) {
+    //   board.downKeyPress();
+    // }
+    // console.log("tableOriX: " + Number(sensorData.orientation.x).toFixed(decimalPlaces));
+    // console.log("tableOriY: " + Number(sensorData.orientation.y).toFixed(decimalPlaces));
+    // console.log("tableOriZ: " + Number(sensorData.orientation.z).toFixed(decimalPlaces));
+    // console.log("tableOriW: " + Number(sensorData.orientation.w).toFixed(decimalPlaces));
+    // console.log(" ");
     valuesLogged = true;
   }
   if (valuesLogged && (accelerometerLengthCalib < lengthThreshold)) {
