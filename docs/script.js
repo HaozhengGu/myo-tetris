@@ -705,6 +705,10 @@ let rightGesture = "wave-out";
 let rotateGesture = "fist";
 let downGesture = "fingers-spread";
 let lengthThreshold = 4;
+let leftThreshold = -0.9;
+let rightThreshold = 0.9;
+let rotateThreshold = 0.9;
+let downThreshold = -0.9;
 
 let valuesLogged = false;
 let board = new Board();
@@ -924,19 +928,19 @@ Myo.on("imu", function (data) {
 });
 
 setInterval (function armControl() {
-  if (sensorData.accelerometer.y < -0.6) {
+  if (sensorData.accelerometer.y < leftThreshold) {
     board.leftKeyPress();
     console.log("Left!");
   }
-  if (sensorData.accelerometer.y > 0.6) {
+  if (sensorData.accelerometer.y > rightThreshold) {
     board.rightKeyPress();
     console.log("Right!");
   }
-  if (sensorData.accelerometer.x > 0.6) {
+  if (sensorData.accelerometer.x > rotateThreshold) {
     board.upKeyPress();
     console.log("Rotate!");
   }
-  if (sensorData.accelerometer.x < -0.6) {
+  if (sensorData.accelerometer.x < downThreshold) {
     board.downKeyPress();
     console.log("Down!");
   }
@@ -974,6 +978,14 @@ function updateTableData() {
 
   const lengthThr = document.getElementById("length-thr");
   lengthThr.innerText = lengthThreshold;
+  const leftThr = document.getElementById("left-thr");
+  leftThr.innerText = leftThreshold;
+  const rightThr = document.getElementById("right-thr");
+  rightThr.innerText = rightThreshold;
+  const rotateThr = document.getElementById("rotate-thr");
+  rotateThr.innerText = rotateThreshold;
+  const downThr = document.getElementById("down-thr");
+  downThr.innerText = downThreshold;
 
   // add gyroscope and orientation data in the table
   const tableGyrX = document.getElementById("gyroscope-x");
@@ -1084,6 +1096,18 @@ function load () {
   if (localStorage.getItem('length-threshold')) {
     lengthThreshold = localStorage.getItem('length-threshold');
   }
+  if (localStorage.getItem('left-threshold')) {
+    leftThreshold = localStorage.getItem('left-threshold');
+  }
+  if (localStorage.getItem('right-threshold')) {
+    rightThreshold = localStorage.getItem('right-threshold');
+  }
+  if (localStorage.getItem('rotate-threshold')) {
+    rotateThreshold = localStorage.getItem('rotate-threshold');
+  }
+  if (localStorage.getItem('down-threshold')) {
+    downThreshold = localStorage.getItem('down-threshold');
+  }
 }
 
 function displayIcon () {
@@ -1125,6 +1149,10 @@ function updateUI () {
   document.getElementById('rotateSelect').value = rotateGesture;
   document.getElementById('downSelect').value = downGesture;
   document.getElementById('length-threshold').value = lengthThreshold;
+  document.getElementById('left-threshold').value = leftThreshold;
+  document.getElementById('right-threshold').value = rightThreshold;
+  document.getElementById('rotate-threshold').value = rotateThreshold;
+  document.getElementById('down-threshold').value = downThreshold;
 }
 
 function save () {
@@ -1134,6 +1162,10 @@ function save () {
   localStorage.setItem('rotateSelect', rotateGesture);
   localStorage.setItem('downSelect', downGesture);
   localStorage.setItem('length-threshold', lengthThreshold);
+  localStorage.setItem('left-threshold', leftThreshold);
+  localStorage.setItem('right-threshold', rightThreshold);
+  localStorage.setItem('rotate-threshold', rotateThreshold);
+  localStorage.setItem('down-threshold', downThreshold);
 }
 
 function registerHandlers () {
@@ -1143,6 +1175,10 @@ function registerHandlers () {
   registerSelectRotateHandler();
   registerSelectDownHandler();
   registerInputThresholdHandler();
+  registerLeftThresholdHandler();
+  registerRightThresholdHandler();
+  registerRotateThresholdHandler();
+  registerDownThresholdHandler();
 }
 
 function registerSelectControlHandler () {
@@ -1190,6 +1226,38 @@ function registerInputThresholdHandler () {
   const threshold = document.getElementById('length-threshold');
   threshold.addEventListener('change', (event) => {
     lengthThreshold = event.target.value;
+    save();
+  });
+}
+
+function registerLeftThresholdHandler () {
+  const threshold = document.getElementById('left-threshold');
+  threshold.addEventListener('change', (event) => {
+    leftThreshold = event.target.value;
+    save();
+  });
+}
+
+function registerRightThresholdHandler () {
+  const threshold = document.getElementById('right-threshold');
+  threshold.addEventListener('change', (event) => {
+    rightThreshold = event.target.value;
+    save();
+  });
+}
+
+function registerRotateThresholdHandler () {
+  const threshold = document.getElementById('rotate-threshold');
+  threshold.addEventListener('change', (event) => {
+    rotateThreshold = event.target.value;
+    save();
+  });
+}
+
+function registerDownThresholdHandler () {
+  const threshold = document.getElementById('down-threshold');
+  threshold.addEventListener('change', (event) => {
+    downThreshold = event.target.value;
     save();
   });
 }
