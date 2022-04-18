@@ -226,6 +226,6 @@ select, option {
 
 #controls {
   border: 2px solid #303a21;
-  padding: 4px;
-  padding-bottom: 20px;
+  padding: 20px;
+  padding-top: 10px;
 }

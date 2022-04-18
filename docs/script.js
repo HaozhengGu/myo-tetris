@@ -715,17 +715,17 @@ let board = new Board();
 
 const KeyboardIcon = document.getElementById("keyboard-icon");
 const GestureIcon = document.getElementById("gesture-icon");
-const ArmIcon = document.getElementById("arm-icon");
+const MovementIcon = document.getElementById("movement-icon");
 const KeyboardDescription = document.getElementById("keyboard-description");
 const GestureDescription = document.getElementById("gesture-description");
-const ArmDescription = document.getElementById("arm-description");
+const MovementDescription = document.getElementById("movement-description");
 const gestureOptions = document.getElementById("gesture-options");
 KeyboardIcon.style.display = "none";
 GestureIcon.style.display = "none";
-ArmIcon.style.display = "none";
+MovementIcon.style.display = "none";
 KeyboardDescription.style.display = "none";
 GestureDescription.style.display = "none";
-ArmDescription.style.display = "none";
+MovementDescription.style.display = "none";
 gestureOptions.style.display = "none";
 
 window.requestAnimationFrame(updateTableData);
@@ -927,7 +927,7 @@ Myo.on("imu", function (data) {
   // arm movement
 });
 
-setInterval (function armControl() {
+setInterval (function movementControl() {
   if (sensorData.accelerometer.y < leftThreshold) {
     board.leftKeyPress();
     console.log("Left!");
@@ -1115,28 +1115,28 @@ function displayIcon () {
     case "keyboard":
       KeyboardIcon.style.display = "block";
       GestureIcon.style.display = "none";
-      ArmIcon.style.display = "none";
+      MovementIcon.style.display = "none";
       KeyboardDescription.style.display = "block";
       GestureDescription.style.display = "none";
-      ArmDescription.style.display = "none";
+      MovementDescription.style.display = "none";
       gestureOptions.style.display = "none";
       break;
     case "gesture":
       KeyboardIcon.style.display = "none";
       GestureIcon.style.display = "block";
-      ArmIcon.style.display = "none";
+      MovementIcon.style.display = "none";
       KeyboardDescription.style.display = "none";
       GestureDescription.style.display = "block";
-      ArmDescription.style.display = "none";
+      MovementDescription.style.display = "none";
       gestureOptions.style.display = "block";
       break;
-    case "arm":
+    case "movement":
       KeyboardIcon.style.display = "none";
       GestureIcon.style.display = "none";
-      ArmIcon.style.display = "block";
+      MovementIcon.style.display = "block";
       KeyboardDescription.style.display = "none";
       GestureDescription.style.display = "none";
-      ArmDescription.style.display = "block";
+      MovementDescription.style.display = "block";
       gestureOptions.style.display = "none";
       break;
   }

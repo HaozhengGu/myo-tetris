@@ -6,7 +6,7 @@ html(lang="en")
     title Myo - Tetris
     script(src="myo.js")
     //- link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
-    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css')
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css')
     link(rel="stylesheet" href="./style.css")
     script(src='https://cdn.plot.ly/plotly-2.9.0.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js')
@@ -20,17 +20,44 @@ html(lang="en")
             select(id="control-method")
               option(id="keyboard-control" value="keyboard") Keyboard
               option(id="gesture-control" value="gesture") Gesture
-              option(id="arm-control" value="arm") Arm
+              option(id="movement-control" value="movement") Movement
           //- make user selectable gestures for different actions
           form
             div(id="icons")
               i(class="fa-solid fa-2xl fa-keyboard" id="keyboard-icon")
               i(class="fa-solid fa-2xl fa-hand-fist" id="gesture-icon")
-              i(class="fa-solid fa-2xl fa-up-down-left-right" id="arm-icon")
+              i(class="fa-solid fa-2xl fa-group-arrows-rotate" id="movement-icon")
             div(id='descriptions')
-              p(id='keyboard-description') Classic gameplay, use the arrow keys on your computer keyboard to control the movement, rotation and falling of blocks
-              p(id='gesture-description') Change the state of the block by making the corresponding gesture, you can set your preferred control below
-              p(id='arm-description') Change the state of the block by waving the arm
+              p(id='keyboard-description')
+                | Classic gameplay
+                br
+                |
+                br
+                | Change the state of the block by using the arrow keys on your computer keyboard
+              p(id='gesture-description')
+                | Change the state of the block by making the corresponding gesture
+                br
+                |
+                br
+                | You can set your preferred control below
+              p(id='movement-description')
+                | Hold the armband in your hand with the logo facing up and the USB port facing you
+                br
+                |
+                br
+                | Rotate the armband:
+                br
+                | counterclockwise to move the block left
+                br
+                | clockwise to move the block right
+                br
+                | towards yourself to rotate the block
+                br
+                | towards the screen to make the block down
+                br
+                |
+                br
+                | You can set the thresholds in the table on the right
             div(id="gesture-options")
               i(class="fa-solid fa-xl fa-arrow-left gesture-icons")
               select(id="leftSelect")
